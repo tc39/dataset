@@ -43,6 +43,9 @@ export async function getProposals() {
         spec = undefined;
       }
     }
+    if (proposal.stage === -1) {
+      proposal.tags.push('inactive');
+    }
     if (data?.archived) {
       proposal.tags.push('archived');
     }
