@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://tc39.es/dataset/schema/individual.json",
   "title": "Individual Proposal",
   "type": "object",
   "properties": {
