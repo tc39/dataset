@@ -35,3 +35,5 @@ jobs:
           publish_dir: dist
           enable_jekyll: true
           force_orphan: true
+          user_name: "github-actions[bot]"
+          user_email: "github-actions[bot]@users.noreply.github.com"
