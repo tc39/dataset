@@ -23,6 +23,11 @@
       "maximum": 4,
       "description": "The stage number of proposal"
     },
+    "id": {
+      "type": "string",
+      "description": "The codename of proposal",
+      "pattern": "^proposal-"
+    },
     "name": {
       "type": "string",
       "description": "The display name of proposal"
@@ -30,11 +35,6 @@
     "description": {
       "type": "string",
       "description": "The description of proposal"
-    },
-    "id": {
-      "type": "string",
-      "description": "The codename of proposal",
-      "pattern": "^proposal-"
     },
     "authors": {
       "type": "array",
@@ -75,7 +75,7 @@
       "items": {
         "type": "string",
         "format": "uri",
-        "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262"
+        "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262\\/(pull|issues)\\/\\d+$"
       },
       "description": "List of tc39 tests"
     },
@@ -114,6 +114,7 @@
     "implementations": {
       "type": "array",
       "items": {
+        "type": "string",
         "enum": [
           "Babel",
           "ChakraCore",
@@ -134,6 +135,7 @@
         ]
       },
       "uniqueItems": true,
+      "additionalItems": false,
       "description": "List of implementations",
       "examples": [["TypeScript", "Babel"]]
     },
