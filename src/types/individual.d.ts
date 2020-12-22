@@ -6,14 +6,22 @@
  */
 
 export interface IndividualProposal {
+  $schema?: string;
   /**
    * The tags of proposal
    */
-  tags: ("ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived")[];
+  tags: [
+    "ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived",
+    ...("ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived")[]
+  ];
   /**
    * The stage number of proposal
    */
   stage: number;
+  /**
+   * The codename of proposal
+   */
+  id?: string;
   /**
    * The display name of proposal
    */
@@ -23,17 +31,13 @@ export interface IndividualProposal {
    */
   description?: string;
   /**
-   * The codename of proposal
-   */
-  id?: string;
-  /**
    * List of Authour
    */
-  authors: string[];
+  authors: [string, ...string[]];
   /**
    * List of Champion
    */
-  champions: string[];
+  champions: [string, ...string[]];
   /**
    * List of tc39 notes
    */
@@ -64,7 +68,44 @@ export interface IndividualProposal {
   /**
    * List of implementations
    */
-  implementations?: unknown[];
+  implementations?: [
+    (
+      | "Babel"
+      | "ChakraCore"
+      | "Chrome"
+      | "Edge"
+      | "Engine262"
+      | "Firefox"
+      | "GraalJS"
+      | "Hermes"
+      | "JavaScriptCore"
+      | "Nashorn"
+      | "Node"
+      | "QuickJS"
+      | "Safari"
+      | "SpiderMonkey"
+      | "TypeScript"
+      | "v8"
+    ),
+    ...(
+      | "Babel"
+      | "ChakraCore"
+      | "Chrome"
+      | "Edge"
+      | "Engine262"
+      | "Firefox"
+      | "GraalJS"
+      | "Hermes"
+      | "JavaScriptCore"
+      | "Nashorn"
+      | "Node"
+      | "QuickJS"
+      | "Safari"
+      | "SpiderMonkey"
+      | "TypeScript"
+      | "v8"
+    )[]
+  ];
   /**
    * inactive proposal rationale (inactive only)
    */

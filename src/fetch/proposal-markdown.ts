@@ -39,12 +39,12 @@ function* readProposals(tags: IndividualProposal['tags'], stages: number[], cont
       const test = _.values(row.tests?.links)[0]?.trim();
       const meeting = _.values(row.meeting?.links)[0]?.trim();
       yield {
-        tags: Array.from(tags),
+        tags: Array.from(tags) as any,
         stage: stages[i],
         name: row.name?.text?.trim()!,
         url: _.values(row.name?.links)[0]?.trim(),
-        authors: splitPeopleNames(row.author?.text) ?? [],
-        champions: splitPeopleNames(row.champion?.text) ?? [],
+        authors: (splitPeopleNames(row.author?.text) ?? []) as any,
+        champions: (splitPeopleNames(row.champion?.text) ?? []) as any,
         notes: meeting
           ? [
               {
