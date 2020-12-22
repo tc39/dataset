@@ -14,6 +14,7 @@
         "type": "string",
         "enum": ["ECMA-262", "ECMA-402", "inactive", "withdrawn", "archived"]
       },
+      "minItems": 1,
       "uniqueItems": true,
       "description": "The tags of proposal"
     },
@@ -41,6 +42,7 @@
       "items": {
         "type": "string"
       },
+      "minItems": 1,
       "description": "List of Authour"
     },
     "champions": {
@@ -48,6 +50,7 @@
       "items": {
         "type": "string"
       },
+      "minItems": 1,
       "description": "List of Champion"
     },
     "notes": {
@@ -134,10 +137,10 @@
           "v8"
         ]
       },
+      "minItems": 1,
       "uniqueItems": true,
       "additionalItems": false,
-      "description": "List of implementations",
-      "examples": [["TypeScript", "Babel"]]
+      "description": "List of implementations"
     },
     "rationale": {
       "type": "string",
@@ -145,6 +148,8 @@
     },
     "edition": {
       "type": "number",
+      "minimum": 2015,
+      "maximum": 2999,
       "description": "available edition of ECMAScript (stage 4 only)"
     }
   },
