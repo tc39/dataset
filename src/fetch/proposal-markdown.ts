@@ -36,20 +36,24 @@ function* readProposals(tags: IndividualProposal['tags'], stages: number[], cont
   for (const table of parseHTML(markdown.render(content), renameHeader)) {
     console.log(`Parsing ${tags[0]} Stage ${stages[i]}`);
     for (const row of table) {
+      const test = _.values(row.tests?.links)[0]?.trim();
+      const meeting = _.values(row.meeting?.links)[0]?.trim();
       yield {
-        tags,
+        tags: Array.from(tags),
         stage: stages[i],
         name: row.name?.text?.trim()!,
         url: _.values(row.name?.links)[0]?.trim(),
         authors: splitPeopleNames(row.author?.text) ?? [],
         champions: splitPeopleNames(row.champion?.text) ?? [],
-        notes: [
-          {
-            date: getMeetingAt(_.values(row.meeting?.links)[0]?.trim())?.toISOString()!,
-            url: _.values(row.meeting?.links)[0]?.trim(),
-          },
-        ],
-        tests: [_.values(row.tests?.links)[0]?.trim()],
+        notes: meeting
+          ? [
+              {
+                date: getMeetingAt(meeting)?.toISOString()!,
+                url: meeting,
+              },
+            ]
+          : undefined,
+        tests: test ? [test] : undefined,
         rationale: row.rationale?.text?.trim(),
         edition: row.edition ? +row.edition.text : undefined,
       };
