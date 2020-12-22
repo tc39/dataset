@@ -1,0 +1,5 @@
+/node_modules
+/dist
+/proposals
+/proposals.json
+/proposals.min.json

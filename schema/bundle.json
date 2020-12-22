@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Bundle Proposals",
+  "type": "array",
+  "items": {
+    "allOf": [
+      {
+        "$ref": "./individual.json"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "pushed_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    ]
+  }
+}
