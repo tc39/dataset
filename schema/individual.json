@@ -4,6 +4,10 @@
   "title": "Individual Proposal",
   "type": "object",
   "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://tc39.es/dataset/schema/individual.json"
+    },
     "tags": {
       "type": "array",
       "items": {
@@ -57,6 +61,7 @@
           },
           "url": {
             "type": "string",
+            "format": "uri",
             "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/notes"
           }
         },
@@ -69,6 +74,7 @@
       "type": "array",
       "items": {
         "type": "string",
+        "format": "uri",
         "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262"
       },
       "description": "List of tc39 tests"
@@ -100,7 +106,8 @@
     "polyfills": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "format": "uri"
       },
       "description": "List of polyfill urls"
     },

@@ -6,11 +6,12 @@
   "items": {
     "allOf": [
       {
-        "$ref": "./individual.json"
-      },
-      {
         "type": "object",
         "properties": {
+          "$schema": {
+            "type": "string",
+            "const": "https://tc39.es/dataset/schema/bundle.json"
+          },
           "url": {
             "type": "string"
           },
@@ -20,6 +21,9 @@
           }
         },
         "additionalProperties": false
+      },
+      {
+        "$ref": "./individual.json"
       }
     ]
   }
