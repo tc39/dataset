@@ -5,8 +5,6 @@ import { getProposals } from './fetch/proposals';
 async function main() {
   console.log(await getRateLimit());
 
-  await fs.copyFile('schema', 'dist/schema');
-
   console.log('Fetch TC39 Proposals');
   const proposals = await getProposals();
   await fs.writeFile('dist/proposals.json', JSON.stringify(proposals));
