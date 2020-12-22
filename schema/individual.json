@@ -71,6 +71,7 @@
         "additionalProperties": false,
         "required": ["date", "url"]
       },
+      "minItems": 1,
       "description": "List of tc39 notes"
     },
     "tests": {
@@ -80,6 +81,7 @@
         "format": "uri",
         "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262\\/(pull|issues)\\/\\d+$"
       },
+      "minItems": 1,
       "description": "List of tc39 tests"
     },
     "has-specification": {
@@ -104,6 +106,7 @@
         "additionalProperties": false,
         "required": ["name", "file-path"]
       },
+      "minItems": 1,
       "description": "Provide example code of tc39.es show code"
     },
     "polyfills": {
@@ -112,6 +115,7 @@
         "type": "string",
         "format": "uri"
       },
+      "minItems": 1,
       "description": "List of polyfill urls"
     },
     "implementations": {
