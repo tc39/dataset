@@ -106,27 +106,29 @@
     },
     "implementations": {
       "type": "array",
-      "enum": [
-        "Babel",
-        "ChakraCore",
-        "Chrome",
-        "Edge",
-        "Engine262",
-        "Firefox",
-        "GraalJS",
-        "Hermes",
-        "JavaScriptCore",
-        "Nashorn",
-        "Node",
-        "QuickJS",
-        "Safari",
-        "SpiderMonkey",
-        "TypeScript",
-        "v8"
-      ],
+      "items": {
+        "enum": [
+          "Babel",
+          "ChakraCore",
+          "Chrome",
+          "Edge",
+          "Engine262",
+          "Firefox",
+          "GraalJS",
+          "Hermes",
+          "JavaScriptCore",
+          "Nashorn",
+          "Node",
+          "QuickJS",
+          "Safari",
+          "SpiderMonkey",
+          "TypeScript",
+          "v8"
+        ]
+      },
       "uniqueItems": true,
       "description": "List of implementations",
-      "examples": ["TypeScript", "Babel"]
+      "examples": [["TypeScript", "Babel"]]
     },
     "rationale": {
       "type": "string",
