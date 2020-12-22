@@ -8,10 +8,6 @@
       {
         "type": "object",
         "properties": {
-          "$schema": {
-            "type": "string",
-            "const": "https://tc39.es/dataset/schema/bundle.json"
-          },
           "url": {
             "type": "string"
           },
