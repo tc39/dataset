@@ -1,4 +1,4 @@
-import { ReposGetResponseData, ReposListForOrgResponseData } from '@octokit/types';
+import { Endpoints } from '@octokit/types';
 import _ from 'lodash';
 import fetch from 'node-fetch';
 import parseGithubURL from 'parse-github-url';
@@ -11,10 +11,10 @@ export async function getProposals() {
   const repos = await getTC39Repos();
   const records: BundleProposals = [];
   for (const proposal of await readAllProposals()) {
-    let data: ReposGetResponseData | ReposListForOrgResponseData[number] | undefined;
+    let data: Endpoints['GET /repos/{owner}/{repo}']['response']['data'] | Endpoints['GET /orgs/{org}/repos']['response']['data'][number] | undefined;
     if (proposal.url?.includes('github.com')) {
       const result = parseGithubURL(proposal.url)!;
-      data = repos.find(({ owner, name }) => owner.login === result.owner && name === result.name);
+      data = repos.find(({ owner, name }) => owner?.login === result.owner && name === result.name);
       if (_.isNil(data)) {
         try {
           const response = await github.repos.get({ owner: result.owner!, repo: result.name! });
@@ -24,20 +24,20 @@ export async function getProposals() {
           continue;
         }
       }
-      if (data.owner.login !== result.owner || data.name !== result.name) {
+      if (data.owner?.login !== result.owner || data.name !== result.name) {
         console.error('::error::[Transferred]', proposal.url, '->', data.html_url);
       }
     }
     console.log(`Added \`${proposal.name}\``);
     let spec: string | undefined;
-    if (data?.owner.login === 'tc39' && /^proposal-/.test(data.name)) {
+    if (data?.owner?.login === 'tc39' && /^proposal-/.test(data.name)) {
       spec = `https://tc39.es/${data.name}/`;
       const response = await fetch(spec, { method: 'HEAD', redirect: 'manual' });
       if (response.status !== 200) {
         spec = undefined;
       }
-    } else if (data?.owner.login !== 'tc39') {
-      spec = `https://${data?.owner.login}.github.io/${data?.name}/`;
+    } else if (data?.owner?.login !== 'tc39') {
+      spec = `https://${data?.owner?.login}.github.io/${data?.name}/`;
       const response = await fetch(spec, { method: 'HEAD', redirect: 'manual' });
       if (response.status !== 200) {
         spec = undefined;

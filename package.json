@@ -1,5 +1,6 @@
 {
   "name": "tc39-dataset",
+  "private": true,
   "description": "TC39 Proposals latest status",
   "license": "UNLICENSE",
   "author": "tc39",

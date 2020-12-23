@@ -1,8 +1,8 @@
-import { ReposListForOrgResponseData } from '@octokit/types';
+import { Endpoints } from '@octokit/types';
 import { github } from './github';
 
 async function getRepos(org: string) {
-  let repos: ReposListForOrgResponseData = [];
+  let repos: Endpoints['GET /orgs/{org}/repos']['response']['data'] = [];
   let page = 0;
   while (true) {
     const { data } = await github.repos.listForOrg({ org, per_page: 100, page });
