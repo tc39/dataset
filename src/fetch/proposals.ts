@@ -43,11 +43,10 @@ export async function getProposals() {
         spec = undefined;
       }
     }
-    if (proposal.stage === -1) {
-      proposal.tags.push('inactive');
-    }
     if (proposal.rationale && /withdrawn/i.test(proposal.rationale)) {
       proposal.tags.push('withdrawn');
+    } else if (proposal.stage === -1) {
+      proposal.tags.push('inactive');
     }
     if (data?.archived) {
       proposal.tags.push('archived');
