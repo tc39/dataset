@@ -14,7 +14,7 @@ export function* parseHTML(input: string, renameHeader: (name: string) => string
     for (const cell of $('td', row).toArray()) {
       const text = $(cell).text().trim();
       const links = _.chain($('a', cell).toArray())
-        .map((element) => [$(element).text().trim(), element.attribs.href.trim()])
+        .map((element) => [$(element).text().trim(), $(element).attr('href')?.trim()])
         .fromPairs()
         .value();
       yield { text, links };
