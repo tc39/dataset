@@ -46,6 +46,9 @@ export async function getProposals() {
     if (proposal.stage === -1) {
       proposal.tags.push('inactive');
     }
+    if (proposal.rationale && /withdrawn/i.test(proposal.rationale)) {
+      proposal.tags.push('withdrawn');
+    }
     if (data?.archived) {
       proposal.tags.push('archived');
     }
