@@ -118,8 +118,8 @@
       "minItems": 1,
       "description": "List of polyfill urls"
     },
-    "compat-data": {
-      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json"
+    "support": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block"
     },
     "rationale": {
       "type": "string",
