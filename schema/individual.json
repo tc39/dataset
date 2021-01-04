@@ -43,7 +43,7 @@
         "type": "string"
       },
       "minItems": 1,
-      "description": "List of Authour"
+      "description": "List of Authors"
     },
     "champions": {
       "type": "array",
@@ -107,7 +107,7 @@
         "required": ["name", "file-path"]
       },
       "minItems": 1,
-      "description": "Provide example code of tc39.es show code"
+      "description": "Provide example code for tc39.es show code"
     },
     "polyfills": {
       "type": "array",
@@ -118,33 +118,8 @@
       "minItems": 1,
       "description": "List of polyfill urls"
     },
-    "implementations": {
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "Babel",
-          "ChakraCore",
-          "Chrome",
-          "Edge",
-          "Engine262",
-          "Firefox",
-          "GraalJS",
-          "Hermes",
-          "JavaScriptCore",
-          "Nashorn",
-          "Node",
-          "QuickJS",
-          "Safari",
-          "SpiderMonkey",
-          "TypeScript",
-          "v8"
-        ]
-      },
-      "minItems": 1,
-      "uniqueItems": true,
-      "additionalItems": false,
-      "description": "List of implementations"
+    "compat-data": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json"
     },
     "rationale": {
       "type": "string",
@@ -152,11 +127,13 @@
     },
     "edition": {
       "type": "number",
-      "minimum": 2015,
-      "maximum": 2999,
+      "oneOf": [
+        { "minimum": 0, "maximum": 1000 },
+        { "minimum": 2015, "maximum": 2999 }
+      ],
       "description": "available edition of ECMAScript (stage 4 only)"
     }
   },
   "additionalProperties": false,
-  "required": ["tags", "name", "stage", "authors", "champions"]
+  "required": ["tags", "name", "stage", "authors"]
 }
