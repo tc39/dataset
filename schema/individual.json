@@ -138,7 +138,7 @@
     },
     "rationale": {
       "type": "string",
-      "description": "inactive proposal rationale (inactive / withdrawn / archived only)"
+      "description": "inactive / withdrawn / archived proposal rationale"
     },
     "edition": {
       "type": "number",
