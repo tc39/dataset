@@ -119,7 +119,7 @@
       "description": "List of polyfill urls"
     },
     "support": {
-      "allOf": [
+      "anyOf": [
         {
           "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block",
           "description": "MDN Support data definition (Browser platform)"
