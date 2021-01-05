@@ -143,7 +143,7 @@
     "edition": {
       "type": "number",
       "oneOf": [
-        { "minimum": 0, "maximum": 1000 },
+        { "minimum": 5, "maximum": 1000 },
         { "minimum": 2015, "maximum": 2999 }
       ],
       "description": "available edition of ECMAScript (stage 4 only)"
