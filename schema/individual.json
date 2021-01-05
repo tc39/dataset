@@ -119,8 +119,22 @@
       "description": "List of polyfill urls"
     },
     "support": {
-      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block",
-      "description": "MDN Support data definition"
+      "allOf": [
+        {
+          "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block",
+          "description": "MDN Support data definition"
+        },
+        {
+          "type": "object",
+          "propertyNames": {
+            "enum": ["babel", "chakracore", "engine262", "graaljs", "hermes", "javascriptcore", "nashorn", "quickjs", "spidermonkey", "typescript", "v8"]
+          },
+          "additionalProperties": {
+            "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_statement"
+          },
+          "description": "TC39 Support data definition (JavaScript engine)"
+        }
+      ]
     },
     "rationale": {
       "type": "string",
