@@ -122,7 +122,7 @@
       "allOf": [
         {
           "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block",
-          "description": "MDN Support data definition"
+          "description": "MDN Support data definition (Browser platform)"
         },
         {
           "type": "object",
