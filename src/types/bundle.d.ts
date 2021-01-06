@@ -5,6 +5,20 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
+export type SupportStatement = SimpleSupportStatement | ArraySupportStatement;
+export type SimpleSupportStatement =
+  | {
+      [k: string]: unknown;
+    }
+  | (
+      | {
+          [k: string]: unknown;
+        }
+      | {
+          [k: string]: unknown;
+        }
+    );
+export type ArraySupportStatement = SimpleSupportStatement[];
 export type BundleProposals = ({
   url?: string;
   pushed_at?: string;
@@ -15,10 +29,7 @@ export interface IndividualProposal {
   /**
    * The tags of proposal
    */
-  tags: [
-    "ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived",
-    ...("ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived")[]
-  ];
+  tags: ("ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived")[];
   /**
    * The stage number of proposal
    */
@@ -36,18 +47,24 @@ export interface IndividualProposal {
    */
   description?: string;
   /**
-   * List of Authour
+   * List of Authors
    */
-  authors: [string, ...string[]];
+  authors: string[];
   /**
    * List of Champion
    */
-  champions: [string, ...string[]];
+  champions?: string[];
   /**
    * List of tc39 notes
    */
   notes?: {
+    /**
+     * Meeting date
+     */
     date: string;
+    /**
+     * Meeting link
+     */
     url: string;
   }[];
   /**
@@ -59,64 +76,51 @@ export interface IndividualProposal {
    */
   "has-specification"?: boolean;
   /**
-   * Provide example code of tc39.es show code
+   * Provide example code for tc39.es show code
    */
   snippets?: {
+    /**
+     * Introduction
+     */
     name: string;
+    /**
+     * Description
+     */
     description?: string;
-    "file-path": string;
+    /**
+     * File path
+     */
+    filepath: string;
   }[];
   /**
    * List of polyfill urls
    */
   polyfills?: string[];
+  support?:
+    | {
+        chrome?: SupportStatement;
+        chrome_android?: SupportStatement;
+        edge?: SupportStatement;
+        firefox?: SupportStatement;
+        firefox_android?: SupportStatement;
+        ie?: SupportStatement;
+        nodejs?: SupportStatement;
+        opera?: SupportStatement;
+        opera_android?: SupportStatement;
+        safari?: SupportStatement;
+        safari_ios?: SupportStatement;
+        samsunginternet_android?: SupportStatement;
+        webview_android?: SupportStatement;
+      }
+    | {
+        [k: string]: SupportStatement;
+      };
   /**
-   * List of implementations
-   */
-  implementations?: [
-    (
-      | "Babel"
-      | "ChakraCore"
-      | "Chrome"
-      | "Edge"
-      | "Engine262"
-      | "Firefox"
-      | "GraalJS"
-      | "Hermes"
-      | "JavaScriptCore"
-      | "Nashorn"
-      | "Node"
-      | "QuickJS"
-      | "Safari"
-      | "SpiderMonkey"
-      | "TypeScript"
-      | "v8"
-    ),
-    ...(
-      | "Babel"
-      | "ChakraCore"
-      | "Chrome"
-      | "Edge"
-      | "Engine262"
-      | "Firefox"
-      | "GraalJS"
-      | "Hermes"
-      | "JavaScriptCore"
-      | "Nashorn"
-      | "Node"
-      | "QuickJS"
-      | "Safari"
-      | "SpiderMonkey"
-      | "TypeScript"
-      | "v8"
-    )[]
-  ];
-  /**
-   * inactive proposal rationale (inactive only)
+   * inactive / withdrawn / archived proposal rationale
    */
   rationale?: string;
   /**
    * available edition of ECMAScript (stage 4 only)
    */
-  edition?: number;
+  edition?: number | number;
 }
