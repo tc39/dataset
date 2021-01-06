@@ -43,6 +43,7 @@
         "type": "string"
       },
       "minItems": 1,
+      "uniqueItems": true,
       "description": "List of Authors"
     },
     "champions": {
@@ -51,27 +52,16 @@
         "type": "string"
       },
       "minItems": 1,
+      "uniqueItems": true,
       "description": "List of Champion"
     },
     "notes": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/notes"
-          }
-        },
-        "additionalProperties": false,
-        "required": ["date", "url"]
+        "$ref": "#/definitions/note"
       },
       "minItems": 1,
+      "uniqueItems": true,
       "description": "List of tc39 notes"
     },
     "tests": {
@@ -82,6 +72,7 @@
         "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262\\/(pull|issues)\\/\\d+$"
       },
       "minItems": 1,
+      "uniqueItems": true,
       "description": "List of tc39 tests"
     },
     "has-specification": {
@@ -91,22 +82,10 @@
     "snippets": {
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "file-path": {
-            "type": "string"
-          }
-        },
-        "additionalProperties": false,
-        "required": ["name", "file-path"]
+        "$ref": "#/definitions/code_snippet"
       },
       "minItems": 1,
+      "uniqueItems": true,
       "description": "Provide example code for tc39.es show code"
     },
     "polyfills": {
@@ -116,12 +95,13 @@
         "format": "uri"
       },
       "minItems": 1,
+      "uniqueItems": true,
       "description": "List of polyfill urls"
     },
     "support": {
       "anyOf": [
         {
-          "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block",
+          "$ref": "#/definitions/support_block",
           "description": "MDN Support data definition (Browser platform)"
         },
         {
@@ -130,7 +110,7 @@
             "enum": ["babel", "chakracore", "engine262", "graaljs", "hermes", "javascriptcore", "nashorn", "quickjs", "spidermonkey", "typescript", "v8"]
           },
           "additionalProperties": {
-            "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_statement"
+            "$ref": "#/definitions/support_statement"
           },
           "description": "TC39 Support data definition (JavaScript engine)"
         }
@@ -141,14 +121,76 @@
       "description": "inactive / withdrawn / archived proposal rationale"
     },
     "edition": {
-      "type": "number",
+      "description": "available edition of ECMAScript (stage 4 only)",
       "oneOf": [
-        { "minimum": 5, "maximum": 1000 },
-        { "minimum": 2015, "maximum": 2999 }
-      ],
-      "description": "available edition of ECMAScript (stage 4 only)"
+        {
+          "type": "number",
+          "minimum": 5,
+          "maximum": 1000
+        },
+        {
+          "type": "number",
+          "minimum": 2015,
+          "maximum": 2999
+        }
+      ]
     }
   },
   "additionalProperties": false,
-  "required": ["tags", "name", "stage", "authors"]
+  "required": ["tags", "name", "stage", "authors"],
+  "definitions": {
+    "code_snippet": {
+      "type": "object",
+      "description": "Code Snippet",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Introduction"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description"
+        },
+        "filepath": {
+          "type": "string",
+          "description": "File path"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["name", "filepath"]
+    },
+    "note": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Meeting date"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/notes",
+          "description": "Meeting link"
+        }
+      },
+      "additionalProperties": false,
+      "required": ["date", "url"]
+    },
+    "support_block": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block"
+    },
+    "support_statement": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_statement"
+    },
+    "simple_support_statement": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/simple_support_statement"
+    },
+    "array_support_statement": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/array_support_statement"
+    },
+    "version_value": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/version_value"
+    }
+  }
 }

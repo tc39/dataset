@@ -19,8 +19,28 @@
         "additionalProperties": false
       },
       {
-        "$ref": "./individual.json"
+        "$ref": "#/definitions/individual"
       }
     ]
+  },
+  "definitions": {
+    "individual": {
+      "$ref": "./individual.json"
+    },
+    "support_block": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_block"
+    },
+    "support_statement": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/support_statement"
+    },
+    "simple_support_statement": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/simple_support_statement"
+    },
+    "array_support_statement": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/array_support_statement"
+    },
+    "version_value": {
+      "$ref": "https://raw.githubusercontent.com/mdn/browser-compat-data/master/schemas/compat-data.schema.json#/definitions/version_value"
+    }
   }
 }
