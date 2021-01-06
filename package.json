@@ -4,6 +4,10 @@
   "description": "TC39 Proposals latest status",
   "license": "UNLICENSE",
   "author": "tc39",
+  "scripts": {
+    "build": "ts-node src/index.ts",
+    "schema": "ts-node src/schema.ts"
+  },
   "dependencies": {
     "@octokit/rest": "^18.0.12",
     "@octokit/types": "^6.1.2",
