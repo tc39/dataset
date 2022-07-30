@@ -38,7 +38,7 @@ export async function getProposals() {
 
       const response = await fetch(specURL, { redirect: 'manual' });
 
-      // This is the default spec text at https://github.com/tc39/template-for-proposals/blob/main/spec.emu
+      // This is the default spec text at https://github.com/tc39/template-for-proposals/blob/HEAD/spec.emu
       if (response.status !== 200) spec = undefined;
       else if ((await response.text()).includes('Proposal Title Goes Here')) spec = undefined;
       else spec = specURL;
