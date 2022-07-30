@@ -30,19 +30,20 @@ export async function getProposals() {
     }
     console.log(`Added \`${proposal.name}\``);
     let spec: string | undefined;
-    if (data?.owner?.login === 'tc39' && /^proposal-/.test(data.name)) {
-      spec = `https://tc39.es/${data.name}/`;
-      const response = await fetch(spec, { method: 'HEAD', redirect: 'manual' });
-      if (response.status !== 200) {
-        spec = undefined;
-      }
-    } else if (data?.owner?.login !== 'tc39') {
-      spec = `https://${data?.owner?.login}.github.io/${data?.name}/`;
-      const response = await fetch(spec, { method: 'HEAD', redirect: 'manual' });
-      if (response.status !== 200) {
-        spec = undefined;
-      }
+    {
+      const specURL =
+        data?.owner?.login === 'tc39' && /^proposal-/.test(data.name)
+          ? `https://tc39.es/${data.name}/`
+          : `https://${data?.owner?.login}.github.io/${data?.name}/`;
+
+      const response = await fetch(specURL, { redirect: 'manual' });
+
+      // This is the default spec text at https://github.com/tc39/template-for-proposals/blob/main/spec.emu
+      if (response.status !== 200) spec = undefined;
+      else if ((await response.text()).includes('Proposal Title Goes Here')) spec = undefined;
+      else spec = specURL;
     }
+
     if (proposal.rationale && /withdrawn/i.test(proposal.rationale)) {
       proposal.tags.push('withdrawn');
     } else if (proposal.stage === -1) {
