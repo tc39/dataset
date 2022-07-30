@@ -1,11 +1,11 @@
 import { Endpoints } from '@octokit/types';
-import _ from 'lodash';
+import _ from 'lodash-es';
 import fetch from 'node-fetch';
 import parseGithubURL from 'parse-github-url';
-import { github } from './github';
-import { readAllProposals } from './proposal-markdown';
-import { getTC39Repos } from './repos';
-import { BundleProposals } from '../types/bundle';
+import { github } from './github.js';
+import { readAllProposals } from './proposal-markdown.js';
+import { getTC39Repos } from './repos.js';
+import { BundleProposals } from '../types/bundle.js';
 
 export async function getProposals() {
   const repos = await getTC39Repos();

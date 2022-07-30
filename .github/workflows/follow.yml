@@ -21,10 +21,12 @@ jobs:
           node-version: 18
       - name: Install
         run: npm ci
+      - name: Build
+        run: npm run build
       - name: Make JSON Schema
-        run: npx ts-node src/schema.ts
+        run: npm run make-scheme
       - name: Make dataset
-        run: npx ts-node src/index.ts
+        run: npm run make-dataset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Prettier JSON

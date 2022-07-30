@@ -1,5 +1,5 @@
 import { Endpoints } from '@octokit/types';
-import { github } from './github';
+import { github } from './github.js';
 
 async function getRepos(org: string) {
   let repos: Endpoints['GET /orgs/{org}/repos']['response']['data'] = [];

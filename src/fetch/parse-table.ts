@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import _ from 'lodash';
+import _ from 'lodash-es';
 
 export function* parseHTML(input: string, renameHeader: (name: string) => string = _.identity) {
   const $ = cheerio.load(input);

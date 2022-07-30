@@ -1,8 +1,8 @@
-import { promises as fs } from 'fs';
-import _ from 'lodash';
+import { readFile } from 'node:fs/promises';
+import _ from 'lodash-es';
 import MarkdownIt from 'markdown-it';
-import { parseHTML } from './parse-table';
-import { BundleProposals, IndividualProposal } from '../types/bundle';
+import { parseHTML } from './parse-table.js';
+import { BundleProposals, IndividualProposal } from '../types/bundle.js';
 
 const markdown = new MarkdownIt();
 
@@ -26,7 +26,7 @@ export async function readAllProposals() {
   ];
   const records: BundleProposals = [];
   for (const { tags, stages, path } of jobs) {
-    records.push(...readProposals(tags, stages, await fs.readFile(`proposals/${path}.md`, 'utf-8')));
+    records.push(...readProposals(tags, stages, await readFile(`proposals/${path}.md`, 'utf-8')));
   }
   return records;
 }
