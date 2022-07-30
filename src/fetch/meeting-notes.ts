@@ -42,5 +42,5 @@ function pathToURL_DatePair(path: string): [string, Date] {
 
   console.log(year, month, dayInMonth);
   const date = new Date(`${year}-${month}-${dayInMonth}`);
-  return [`https://github.com/tc39/notes/blob/main/meetings/${yearMonth}/${monthDay}.md`, date];
+  return [`https://github.com/tc39/notes/blob/main/meetings/${yearMonth}/${monthDay}`, date];
 }
