@@ -16,6 +16,10 @@ jobs:
         with:
           repository: tc39/proposals
           path: proposals
+      - uses: actions/checkout@v2
+        with:
+          repository: tc39/notes
+          path: notes
       - uses: actions/setup-node@v3
         with:
           node-version: 18
