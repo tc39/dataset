@@ -29,7 +29,8 @@ export async function findURLPresentInMeetingNotes(url: string): Promise<[string
   return Array.from(notes)
     .filter((x) => x[1].includes(url))
     .map((x) => x[0])
-    .map(pathToURL_DatePair);
+    .map(pathToURL_DatePair)
+    .filter((x) => Number.isNaN(x[1].valueOf()));
 }
 
 function pathToURL_DatePair(path: string): [string, Date] {
