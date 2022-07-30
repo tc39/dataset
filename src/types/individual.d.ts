@@ -6,9 +6,11 @@
  */
 
 export interface IndividualProposal {
-  $schema?: string;
+  $schema?: "https://tc39.es/dataset/schema/individual.json";
   /**
    * The tags of proposal
+   *
+   * @minItems 1
    */
   tags: [
     "ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived",
@@ -32,41 +34,68 @@ export interface IndividualProposal {
   description?: string;
   /**
    * List of Authour
+   *
+   * @minItems 1
    */
   authors: [string, ...string[]];
   /**
    * List of Champion
+   *
+   * @minItems 1
    */
   champions: [string, ...string[]];
   /**
    * List of tc39 notes
+   *
+   * @minItems 1
    */
-  notes?: {
-    date: string;
-    url: string;
-  }[];
+  notes?: [
+    {
+      date: string;
+      url: string;
+    },
+    ...{
+      date: string;
+      url: string;
+    }[]
+  ];
   /**
    * List of tc39 tests
+   *
+   * @minItems 1
    */
-  tests?: string[];
+  tests?: [string, ...string[]];
   /**
    * Has specification (spec.emu available)
    */
   "has-specification"?: boolean;
   /**
    * Provide example code of tc39.es show code
+   *
+   * @minItems 1
    */
-  snippets?: {
-    name: string;
-    description?: string;
-    "file-path": string;
-  }[];
+  snippets?: [
+    {
+      name: string;
+      description?: string;
+      "file-path": string;
+    },
+    ...{
+      name: string;
+      description?: string;
+      "file-path": string;
+    }[]
+  ];
   /**
    * List of polyfill urls
+   *
+   * @minItems 1
    */
-  polyfills?: string[];
+  polyfills?: [string, ...string[]];
   /**
    * List of implementations
+   *
+   * @minItems 1
    */
   implementations?: [
     (

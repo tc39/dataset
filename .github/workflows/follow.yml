@@ -16,7 +16,9 @@ jobs:
         with:
           repository: tc39/proposals
           path: proposals
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
       - name: Install
         run: npm ci
       - name: Make JSON Schema
