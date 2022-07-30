@@ -20,7 +20,7 @@ export async function getProposals() {
           const response = await github.repos.get({ owner: result.owner!, repo: result.name! });
           data = response.data;
         } catch (error) {
-          console.error('::error::[Skip]', proposal.url, error.message);
+          console.error('::error::[Skip]', proposal.url, (error as any).message);
           continue;
         }
       }

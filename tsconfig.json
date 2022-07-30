@@ -6,6 +6,8 @@
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+    "outDir": "./runner-dist"
+  },
+  "include": ["./src"]
 }
