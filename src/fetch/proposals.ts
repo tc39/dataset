@@ -1,11 +1,23 @@
 import { Endpoints } from '@octokit/types';
 import _ from 'lodash-es';
-import fetch from 'node-fetch';
 import parseGithubURL from 'parse-github-url';
 import { github } from './github.js';
 import { readAllProposals } from './proposal-markdown.js';
 import { getTC39Repos } from './repos.js';
 import { BundleProposals } from '../types/bundle.js';
+
+const fetchWithRetry = async (url: RequestInfo, init: RequestInit, retryCount = 3) => {
+  for (let i = 0; i < retryCount; i++) {
+    try {
+      return await fetch(url, init);
+    } catch (error) {
+      if (i === retryCount - 1) throw error;
+    }
+    // exponential backoff: 100ms, 400ms, 900ms
+    await new Promise((resolve) => setTimeout(resolve, (i + 1) ** 2 * 100));
+  }
+  throw new Error('Unreachable');
+};
 
 export async function getProposals() {
   const repos = await getTC39Repos();
@@ -36,7 +48,7 @@ export async function getProposals() {
           ? `https://tc39.es/${data.name}/`
           : `https://${data?.owner?.login}.github.io/${data?.name}/`;
 
-      const response = await fetch(specURL, { redirect: 'manual' });
+      const response = await fetchWithRetry(specURL, { redirect: 'manual' });
 
       // This is the default spec text at https://github.com/tc39/template-for-proposals/blob/HEAD/spec.emu
       if (response.status !== 200) spec = undefined;

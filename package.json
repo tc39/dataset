@@ -17,7 +17,6 @@
     "cheerio": "^1.0.0-rc.3",
     "lodash-es": "^4.17.21",
     "markdown-it": "^13.0.1",
-    "node-fetch": "^3.2.9",
     "parse-github-url": "^1.0.2"
   },
   "devDependencies": {
