@@ -16,7 +16,7 @@ export async function readAllProposals() {
   const jobs: Job[] = [
     // ECMA-262
     { tags: ['ECMA-262'], stages: [4], path: 'finished-proposals' },
-    { tags: ['ECMA-262'], stages: [3, 2], path: 'README' },
+    { tags: ['ECMA-262'], stages: [3, 2.7, 2], path: 'README' },
     { tags: ['ECMA-262'], stages: [1], path: 'stage-1-proposals' },
     { tags: ['ECMA-262'], stages: [0], path: 'stage-0-proposals' },
     { tags: ['ECMA-262'], stages: [-1], path: 'inactive-proposals' },
