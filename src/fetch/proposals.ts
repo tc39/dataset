@@ -1,10 +1,10 @@
-import { Endpoints } from '@octokit/types';
-import _ from 'lodash-es';
+import type { Endpoints } from '@octokit/types';
+import { isNil, chain } from 'lodash-es';
 import parseGithubURL from 'parse-github-url';
 import { github } from './github.js';
 import { readAllProposals } from './proposal-markdown.js';
 import { getTC39Repos } from './repos.js';
-import { BundleProposals } from '../types/bundle.js';
+import type { BundleProposals } from '../types/bundle.js';
 
 const fetchWithRetry = async (url: RequestInfo, init: RequestInit, retryCount = 3) => {
   for (let i = 0; i < retryCount; i++) {
@@ -27,7 +27,7 @@ export async function getProposals() {
     if (proposal.url?.includes('github.com')) {
       const result = parseGithubURL(proposal.url)!;
       data = repos.find(({ owner, name }) => owner?.login === result.owner && name === result.name);
-      if (_.isNil(data)) {
+      if (isNil(data)) {
         try {
           const response = await github.repos.get({ owner: result.owner!, repo: result.name! });
           data = response.data;
@@ -72,7 +72,7 @@ export async function getProposals() {
       'id': data?.name && /^proposal-/.test(data?.name) ? data?.name : undefined,
       'description': data?.description?.trim() ?? undefined,
 
-      'url': proposal.url?.includes('/blob/master/') ? proposal.url : data?.html_url ?? proposal.url,
+      'url': proposal.url?.includes('/blob/master/') ? proposal.url : (data?.html_url ?? proposal.url),
       'tests': proposal.tests,
       'notes': proposal.notes,
 
@@ -87,7 +87,7 @@ export async function getProposals() {
       'pushed_at': data?.pushed_at ? new Date(data?.pushed_at).toISOString() : undefined,
     });
   }
-  return _.chain(records)
+  return chain(records)
     .sortBy(({ pushed_at }) => (pushed_at ? new Date(pushed_at).getTime() : 0))
     .reverse()
     .value();

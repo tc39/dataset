@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "Node16",
-    "moduleResolution": "Node16",
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
     "strict": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "verbatimModuleSyntax": true,
     "resolveJsonModule": true,
     "outDir": "./runner-dist",
     "sourceMap": true

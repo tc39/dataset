@@ -1,8 +1,8 @@
 import { readFile } from 'node:fs/promises';
-import _ from 'lodash-es';
+import { values, isNil } from 'lodash-es';
 import MarkdownIt from 'markdown-it';
 import { parseHTML } from './parse-table.js';
-import { BundleProposals, IndividualProposal } from '../types/bundle.js';
+import type { BundleProposals, IndividualProposal } from '../types/bundle.js';
 import { findURLPresentInMeetingNotes } from './meeting-notes.js';
 
 const markdown = new MarkdownIt();
@@ -39,13 +39,13 @@ async function* readProposals(tags: IndividualProposal['tags'], stages: number[]
   for (const table of parseHTML(markdown.render(content), renameHeader)) {
     console.log(`Parsing ${tags[0]} Stage ${stages[i]}`);
     for (const row of table) {
-      const test = _.values(row.tests?.links)[0]?.trim();
-      const meeting = _.values(row.meeting?.links)[0]?.trim();
+      const test = values(row.tests?.links)[0]?.trim();
+      const meeting = values(row.meeting?.links)[0]?.trim();
       const proposal: BundleProposals[0] = {
         tags: Array.from(tags) as any,
         stage: stages[i],
         name: row.name?.text?.trim()!,
-        url: _.values(row.name?.links)[0]?.trim(),
+        url: values(row.name?.links)[0]?.trim(),
         authors: (splitPeopleNames(row.author?.text) ?? []) as any,
         champions: (splitPeopleNames(row.champion?.text) ?? []) as any,
         notes: meeting
@@ -99,7 +99,7 @@ function renameHeader(name: string): string {
 }
 
 function splitPeopleNames(text: string | undefined) {
-  if (_.isNil(text)) {
+  if (isNil(text)) {
     return;
   }
   const texts = text

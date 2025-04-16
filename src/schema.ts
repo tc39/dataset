@@ -1,6 +1,6 @@
 import $RefParser from '@apidevtools/json-schema-ref-parser';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { JSONSchema4 } from 'json-schema';
+import type { JSONSchema4 } from 'json-schema';
 import { compile } from 'json-schema-to-typescript';
 
 await mkdir('./dist/schema', { recursive: true });

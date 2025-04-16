@@ -1,4 +1,4 @@
-import { Endpoints } from '@octokit/types';
+import type { Endpoints } from '@octokit/types';
 import { github } from './github.js';
 
 async function getRepos(org: string) {

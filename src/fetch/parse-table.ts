@@ -1,7 +1,7 @@
-import cheerio from 'cheerio';
-import _ from 'lodash-es';
+import * as cheerio from 'cheerio';
+import { identity, chain, fromPairs } from 'lodash-es';
 
-export function* parseHTML(input: string, renameHeader: (name: string) => string = _.identity) {
+export function* parseHTML(input: string, renameHeader: (name: string) => string = identity) {
   const $ = cheerio.load(input);
 
   function* buildHeaders(element: cheerio.Element) {
@@ -13,7 +13,7 @@ export function* parseHTML(input: string, renameHeader: (name: string) => string
   function* buildRow(row: cheerio.Element): Generator<Field> {
     for (const cell of $('td', row).toArray()) {
       const text = $(cell).text().trim();
-      const links = _.chain($('a', cell).toArray())
+      const links = chain($('a', cell).toArray())
         .map((element) => [$(element).text().trim(), $(element).attr('href')?.trim()])
         .fromPairs()
         .value();
@@ -24,7 +24,7 @@ export function* parseHTML(input: string, renameHeader: (name: string) => string
   function* buildRows(headers: string[], rows: cheerio.Element[]): Generator<Record<string, Field | undefined>> {
     for (let index = 1; index < rows.length; index++) {
       const fields = Array.from(buildRow(rows[index]));
-      yield _.fromPairs(fields.map((value, i) => [headers[i], value]));
+      yield fromPairs(fields.map((value, i) => [headers[i], value]));
     }
   }
 
