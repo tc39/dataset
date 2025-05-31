@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "https://tc39.es/dataset/schema/individual.json",
+  "title": "Individual Proposal",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "https://tc39.es/dataset/schema/individual.json"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["ECMA-262", "ECMA-402", "inactive", "withdrawn", "archived"]
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "description": "The tags of proposal"
+    },
+    "stage": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 4,
+      "description": "The stage number of proposal"
+    },
+    "id": {
+      "type": "string",
+      "description": "The codename of proposal",
+      "pattern": "^proposal-"
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of proposal"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of proposal"
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "List of Authour"
+    },
+    "champions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "List of Champion"
+    },
+    "notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/notes"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["date", "url"]
+      },
+      "minItems": 1,
+      "description": "List of tc39 notes"
+    },
+    "tests": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262\\/(pull|issues)\\/\\d+$"
+      },
+      "minItems": 1,
+      "description": "List of tc39 tests"
+    },
+    "has-specification": {
+      "type": "boolean",
+      "description": "Has specification (spec.emu available)"
+    },
+    "snippets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "file-path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "required": ["name", "file-path"]
+      },
+      "minItems": 1,
+      "description": "Provide example code of tc39.es show code"
+    },
+    "polyfills": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uri"
+      },
+      "minItems": 1,
+      "description": "List of polyfill urls"
+    },
+    "implementations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "Babel",
+          "ChakraCore",
+          "Chrome",
+          "Edge",
+          "Engine262",
+          "Firefox",
+          "GraalJS",
+          "Hermes",
+          "JavaScriptCore",
+          "Nashorn",
+          "Node",
+          "QuickJS",
+          "Safari",
+          "SpiderMonkey",
+          "TypeScript",
+          "v8"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true,
+      "additionalItems": false,
+      "description": "List of implementations"
+    },
+    "rationale": {
+      "type": "string",
+      "description": "inactive proposal rationale (inactive only)"
+    },
+    "edition": {
+      "type": "number",
+      "minimum": 2015,
+      "maximum": 2999,
+      "description": "available edition of ECMAScript (stage 4 only)"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["tags", "name", "stage", "authors", "champions"]
+}
