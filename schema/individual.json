@@ -28,10 +28,8 @@
       "description": "The tags of proposal"
     },
     "stage": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 4,
-      "description": "The stage number of proposal"
+      "enum": [-1, 0, 1, 2, 2.7, 3, 4],
+      "description": "The stage number of proposal (-1 for withdrawn/inactive proposals)"
     },
     "id": {
       "type": "string",
@@ -166,5 +164,5 @@
     }
   },
   "additionalProperties": false,
-  "required": ["tags", "name", "stage", "authors", "champions"]
+  "required": ["tags", "name", "authors", "champions"]
 }

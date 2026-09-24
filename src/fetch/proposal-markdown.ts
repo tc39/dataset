@@ -10,7 +10,7 @@ const markdown = new MarkdownIt();
 export async function readAllProposals() {
   interface Job {
     tags: IndividualProposal['tags'];
-    stages: number[];
+    stages: NonNullable<IndividualProposal['stage']>[];
     path: string;
   }
   const jobs: Job[] = [
@@ -34,7 +34,11 @@ export async function readAllProposals() {
   return records;
 }
 
-async function* readProposals(tags: IndividualProposal['tags'], stages: number[], content: string): AsyncGenerator<BundleProposals[0]> {
+async function* readProposals(
+  tags: IndividualProposal['tags'],
+  stages: NonNullable<IndividualProposal['stage']>[],
+  content: string,
+): AsyncGenerator<BundleProposals[0]> {
   let i = 0;
   for (const table of parseHTML(markdown.render(content), renameHeader)) {
     console.log(`Parsing ${tags[0]} Stage ${stages[i]}`);

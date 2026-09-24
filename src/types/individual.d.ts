@@ -25,9 +25,9 @@ export interface IndividualProposal {
     ...("ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived")[]
   ];
   /**
-   * The stage number of proposal
+   * The stage number of proposal (-1 for withdrawn/inactive proposals)
    */
-  stage: number;
+  stage?: -1 | 0 | 1 | 2 | 2.7 | 3 | 4;
   /**
    * The codename of proposal
    */
