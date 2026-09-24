@@ -4,6 +4,15 @@
   "title": "Individual Proposal",
   "type": "object",
   "properties": {
+    "url": {
+      "type": "string",
+      "description": "The URL of the proposal repository"
+    },
+    "pushed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last pushed_at timestamp of the proposal repository"
+    },
     "$schema": {
       "type": "string",
       "const": "https://tc39.es/dataset/schema/individual.json"

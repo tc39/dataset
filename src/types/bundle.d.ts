@@ -5,12 +5,17 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type BundleProposals = ({
-  url?: string;
-  pushed_at?: string;
-} & IndividualProposal)[];
+export type BundleProposals = IndividualProposal[];
 
 export interface IndividualProposal {
+  /**
+   * The URL of the proposal repository
+   */
+  url?: string;
+  /**
+   * Last pushed_at timestamp of the proposal repository
+   */
+  pushed_at?: string;
   $schema?: "https://tc39.es/dataset/schema/individual.json";
   /**
    * The tags of proposal
