@@ -44,16 +44,12 @@ export interface IndividualProposal {
   description?: string;
   /**
    * List of Authour
-   *
-   * @minItems 1
    */
-  authors: [string, ...string[]];
+  authors: string[];
   /**
    * List of Champion
-   *
-   * @minItems 1
    */
-  champions: [string, ...string[]];
+  champions: string[];
   /**
    * List of tc39 notes
    *
