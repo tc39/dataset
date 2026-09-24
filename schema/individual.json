@@ -49,7 +49,7 @@
       "items": {
         "type": "string"
       },
-      "description": "List of Authour"
+      "description": "List of Author"
     },
     "champions": {
       "type": "array",

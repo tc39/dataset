@@ -41,7 +41,7 @@ export interface IndividualProposal {
    */
   description?: string;
   /**
-   * List of Authour
+   * List of Author
    */
   authors: string[];
   /**
