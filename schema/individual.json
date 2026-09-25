@@ -143,7 +143,6 @@
       },
       "minItems": 1,
       "uniqueItems": true,
-      "additionalItems": false,
       "description": "List of implementations"
     },
     "rationale": {
