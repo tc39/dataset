@@ -70,7 +70,7 @@
           "url": {
             "type": "string",
             "format": "uri",
-            "pattern": "^https://github\\.com/tc39/notes"
+            "pattern": "^https://github\\.com/tc39/(notes|ecma262/issues/\\d+)"
           }
         },
         "additionalProperties": false,

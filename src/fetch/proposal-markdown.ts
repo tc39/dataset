@@ -4,6 +4,7 @@ import MarkdownIt from 'markdown-it';
 import { parseHTML } from './parse-table.js';
 import type { BundleProposals, IndividualProposal } from '../types/bundle.js';
 import { findURLPresentInMeetingNotes } from './meeting-notes.js';
+import { github } from './github.js';
 
 const markdown = new MarkdownIt();
 
@@ -45,7 +46,7 @@ async function* readProposals(
     for (const row of table) {
       const test = values(row.tests?.links)[0]?.trim();
       const meeting = values(row.meeting?.links)[0]?.trim();
-      const meetingDate = meeting ? getMeetingAt(meeting) : undefined;
+      const meetingDate = meeting ? (getMeetingAt(meeting) ?? (await getEcma262IssueDate(meeting))) : undefined;
       const proposal: BundleProposals[0] = {
         tags: Array.from(tags) as any,
         stage: stages[i],
@@ -128,4 +129,16 @@ function getMeetingAt(meeting?: string) {
     return new Date(+RegExp.$1, +RegExp.$2 - 1, +RegExp.$3);
   }
   return;
+}
+
+async function getEcma262IssueDate(url: string): Promise<Date | undefined> {
+  const match = /^https:\/\/github\.com\/tc39\/ecma262\/issues\/(\d+)(?:#issuecomment-(\d+))?$/.exec(url);
+  if (!match) return;
+  const [, issueNumber, commentId] = match;
+  if (commentId) {
+    const { data } = await github.issues.getComment({ owner: 'tc39', repo: 'ecma262', comment_id: +commentId });
+    return new Date(data.created_at);
+  }
+  const { data } = await github.issues.get({ owner: 'tc39', repo: 'ecma262', issue_number: +issueNumber });
+  return new Date(data.created_at);
 }
