@@ -45,6 +45,7 @@ async function* readProposals(
     for (const row of table) {
       const test = values(row.tests?.links)[0]?.trim();
       const meeting = values(row.meeting?.links)[0]?.trim();
+      const meetingDate = meeting ? getMeetingAt(meeting) : undefined;
       const proposal: BundleProposals[0] = {
         tags: Array.from(tags) as any,
         stage: stages[i],
@@ -52,11 +53,11 @@ async function* readProposals(
         url: values(row.name?.links)[0]?.trim(),
         authors: (splitPeopleNames(row.author?.text) ?? []) as any,
         champions: (splitPeopleNames(row.champion?.text) ?? []) as any,
-        notes: meeting
+        notes: meetingDate
           ? [
               {
-                date: getMeetingAt(meeting)?.toISOString()!,
-                url: meeting,
+                date: meetingDate.toISOString(),
+                url: meeting!,
               },
             ]
           : undefined,
