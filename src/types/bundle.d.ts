@@ -5,12 +5,17 @@
  * and run json-schema-to-typescript to regenerate this file.
  */
 
-export type BundleProposals = ({
-  url?: string;
-  pushed_at?: string;
-} & IndividualProposal)[];
+export type BundleProposals = IndividualProposal[];
 
 export interface IndividualProposal {
+  /**
+   * The URL of the proposal repository
+   */
+  url?: string;
+  /**
+   * Last pushed_at timestamp of the proposal repository
+   */
+  pushed_at?: string;
   $schema?: "https://tc39.es/dataset/schema/individual.json";
   /**
    * The tags of proposal
@@ -22,9 +27,9 @@ export interface IndividualProposal {
     ...("ECMA-262" | "ECMA-402" | "inactive" | "withdrawn" | "archived")[]
   ];
   /**
-   * The stage number of proposal
+   * The stage number of proposal (-1 for withdrawn/inactive proposals)
    */
-  stage: number;
+  stage?: -1 | 0 | 1 | 2 | 2.7 | 3 | 4;
   /**
    * The codename of proposal
    */
@@ -38,17 +43,13 @@ export interface IndividualProposal {
    */
   description?: string;
   /**
-   * List of Authour
-   *
-   * @minItems 1
+   * List of Author
    */
-  authors: [string, ...string[]];
+  authors: string[];
   /**
    * List of Champion
-   *
-   * @minItems 1
    */
-  champions: [string, ...string[]];
+  champions: string[];
   /**
    * List of tc39 notes
    *

@@ -4,6 +4,15 @@
   "title": "Individual Proposal",
   "type": "object",
   "properties": {
+    "url": {
+      "type": "string",
+      "description": "The URL of the proposal repository"
+    },
+    "pushed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last pushed_at timestamp of the proposal repository"
+    },
     "$schema": {
       "type": "string",
       "const": "https://tc39.es/dataset/schema/individual.json"
@@ -19,10 +28,8 @@
       "description": "The tags of proposal"
     },
     "stage": {
-      "type": "number",
-      "minimum": 0,
-      "maximum": 4,
-      "description": "The stage number of proposal"
+      "enum": [-1, 0, 1, 2, 2.7, 3, 4],
+      "description": "The stage number of proposal (-1 for withdrawn/inactive proposals)"
     },
     "id": {
       "type": "string",
@@ -42,15 +49,13 @@
       "items": {
         "type": "string"
       },
-      "minItems": 1,
-      "description": "List of Authour"
+      "description": "List of Author"
     },
     "champions": {
       "type": "array",
       "items": {
         "type": "string"
       },
-      "minItems": 1,
       "description": "List of Champion"
     },
     "notes": {
@@ -65,7 +70,7 @@
           "url": {
             "type": "string",
             "format": "uri",
-            "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/notes"
+            "pattern": "^https://github\\.com/tc39/(notes|ecma262/issues/\\d+)"
           }
         },
         "additionalProperties": false,
@@ -79,7 +84,7 @@
       "items": {
         "type": "string",
         "format": "uri",
-        "pattern": "^https\\:\\/\\/github\\.com\\/tc39\\/test262\\/(pull|issues)\\/\\d+$"
+        "pattern": "^https://github\\.com/tc39/test262/(pull|issues)/\\d+$"
       },
       "minItems": 1,
       "description": "List of tc39 tests"
@@ -143,7 +148,6 @@
       },
       "minItems": 1,
       "uniqueItems": true,
-      "additionalItems": false,
       "description": "List of implementations"
     },
     "rationale": {
@@ -158,5 +162,5 @@
     }
   },
   "additionalProperties": false,
-  "required": ["tags", "name", "stage", "authors", "champions"]
+  "required": ["tags", "name", "authors", "champions"]
 }

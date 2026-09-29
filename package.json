@@ -8,6 +8,7 @@
   "scripts": {
     "make-scheme": "node runner-dist/schema.js",
     "make-dataset": "node runner-dist/index.js",
+    "validate": "node runner-dist/validate.js",
     "build": "tsc -p ./tsconfig.json",
     "start": "tsc -p ./tsconfig.json -w"
   },
@@ -27,6 +28,8 @@
     "@types/node": "^22.14.1",
     "@types/node-fetch": "^2.6.12",
     "@types/parse-github-url": "^1.0.3",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "json-schema-to-typescript": "^15.0.4",
     "typescript": "^5.8.3"
   }

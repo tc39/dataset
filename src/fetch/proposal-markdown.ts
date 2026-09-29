@@ -4,13 +4,14 @@ import MarkdownIt from 'markdown-it';
 import { parseHTML } from './parse-table.js';
 import type { BundleProposals, IndividualProposal } from '../types/bundle.js';
 import { findURLPresentInMeetingNotes } from './meeting-notes.js';
+import { github } from './github.js';
 
 const markdown = new MarkdownIt();
 
 export async function readAllProposals() {
   interface Job {
     tags: IndividualProposal['tags'];
-    stages: number[];
+    stages: NonNullable<IndividualProposal['stage']>[];
     path: string;
   }
   const jobs: Job[] = [
@@ -34,13 +35,18 @@ export async function readAllProposals() {
   return records;
 }
 
-async function* readProposals(tags: IndividualProposal['tags'], stages: number[], content: string): AsyncGenerator<BundleProposals[0]> {
+async function* readProposals(
+  tags: IndividualProposal['tags'],
+  stages: NonNullable<IndividualProposal['stage']>[],
+  content: string,
+): AsyncGenerator<BundleProposals[0]> {
   let i = 0;
   for (const table of parseHTML(markdown.render(content), renameHeader)) {
     console.log(`Parsing ${tags[0]} Stage ${stages[i]}`);
     for (const row of table) {
       const test = values(row.tests?.links)[0]?.trim();
       const meeting = values(row.meeting?.links)[0]?.trim();
+      const meetingDate = meeting ? (getMeetingAt(meeting) ?? (await getEcma262IssueDate(meeting))) : undefined;
       const proposal: BundleProposals[0] = {
         tags: Array.from(tags) as any,
         stage: stages[i],
@@ -48,11 +54,11 @@ async function* readProposals(tags: IndividualProposal['tags'], stages: number[]
         url: values(row.name?.links)[0]?.trim(),
         authors: (splitPeopleNames(row.author?.text) ?? []) as any,
         champions: (splitPeopleNames(row.champion?.text) ?? []) as any,
-        notes: meeting
+        notes: meetingDate
           ? [
               {
-                date: getMeetingAt(meeting)?.toISOString()!,
-                url: meeting,
+                date: meetingDate.toISOString(),
+                url: meeting!,
               },
             ]
           : undefined,
@@ -123,4 +129,16 @@ function getMeetingAt(meeting?: string) {
     return new Date(+RegExp.$1, +RegExp.$2 - 1, +RegExp.$3);
   }
   return;
+}
+
+async function getEcma262IssueDate(url: string): Promise<Date | undefined> {
+  const match = /^https:\/\/github\.com\/tc39\/ecma262\/issues\/(\d+)(?:#issuecomment-(\d+))?$/.exec(url);
+  if (!match) return;
+  const [, issueNumber, commentId] = match;
+  if (commentId) {
+    const { data } = await github.issues.getComment({ owner: 'tc39', repo: 'ecma262', comment_id: +commentId });
+    return new Date(data.created_at);
+  }
+  const { data } = await github.issues.get({ owner: 'tc39', repo: 'ecma262', issue_number: +issueNumber });
+  return new Date(data.created_at);
 }

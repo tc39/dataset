@@ -4,23 +4,6 @@
   "title": "Bundle Proposals",
   "type": "array",
   "items": {
-    "allOf": [
-      {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string"
-          },
-          "pushed_at": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      {
-        "$ref": "./individual.json"
-      }
-    ]
+    "$ref": "./individual.json"
   }
 }

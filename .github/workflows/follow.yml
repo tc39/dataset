@@ -33,6 +33,8 @@ jobs:
         run: npm run make-dataset
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate dataset
+        run: npm run validate
       - name: Prettier JSON
         run: npx prettier --write .
         working-directory: dist
